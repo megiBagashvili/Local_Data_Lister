@@ -29,7 +29,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Import Express, create an app instance, define a basic `/` route ("Hello from the Backend!"), start the server on a port (e.g., 3001).
     -   Add `"dev": "nodemon src/server.ts"` script to `backend/package.json`.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.5: Read Data from `data.json`:**
+-   [x]   **To-do 1.5: Read Data from `data.json`:**
     -   In `backend/src/server.ts`, import the `fs` module.
     -   Implement logic to read and parse `backend/data.json` into a JavaScript array of `LocalItem` objects.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
