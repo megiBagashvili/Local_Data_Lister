@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Tiramisu",
+    "type": "Dessert",
+    "description": "An iconic Italian dessert with coffee-soaked ladyfingers and mascarpone.",
+    "location": "Italy",
+    "features": ["Coffee-Flavored", "Mascarpone", "Cocoa Powder"]
+  },
+  {
+    "id": "2",
+    "name": "Scrat",
+    "type": "Character",
+    "description": "The persistent, acorn-obsessed saber-toothed squirrel from Ice Age.",
+    "location": "Ice Age World",
+    "features": ["Saber-Toothed", "Acorn Obsessed", "Comedic Relief"]
+  },
+  {
+    "id": "3",
+    "name": "Indian Ocean Tsunami",
+    "type": "Disaster",
+    "description": "A devastating tsunami that struck the Indian Ocean in December 2004.",
+    "location": "Indian Ocean",
+    "features": ["2004", "Widespread Impact", "High Loss of Life"]
+  },
+  {
+    "id": "4",
+    "name": "Nike",
+    "type": "Brand",
+    "description": "A multinational corporation that designs, develops, and markets athletic footwear and apparel.",
+    "location": "Beaverton, Oregon, USA",
+    "features": ["Athletic Wear", "Footwear", "Global Brand"]
+  }
+]
