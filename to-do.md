@@ -10,33 +10,33 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 1: Backend Setup & Initial Data (Assigned to: Megi)
 
--   [ ]   **To-do 1.1: Initialize Backend Project:**
+-   [x]   **To-do 1.1: Initialize Backend Project:**
     -   Navigate to the `backend` folder in the terminal.
     -   Run `npm init -y` to create `package.json`.
     -   Install dev dependencies: `npm install typescript ts-node nodemon @types/node --save-dev`.
     -   Install Express: `npm install express @types/express --save`.
     -   Initialize TypeScript config: `npx tsc --init`. Adjust `tsconfig.json` (e.g., `outDir`, `rootDir`, `esModuleInterop`, `strict`).
     -   **GitHub Action:** Create branch `feature/backend-setup`.
--   [ ]   **To-do 1.2: Define Backend Data Interface:**
+-   [x]   **To-do 1.2: Define Backend Data Interface:**
     -   Create `backend/src/types/LocalItem.ts`.
     -   Define the `LocalItem` interface based on `data.json` (e.g., `id: string`, `name: string`, `type: string`, `description: string`, `location?: string`, `features?: string[]`).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.3: Create `data.json` File:**
+-   [x]   **To-do 1.3: Create `data.json` File:**
     -   Create `backend/data.json` with at least 3-4 sample local data items matching the `LocalItem` interface.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.4: Basic Express Server Setup:**
+-   [x]   **To-do 1.4: Basic Express Server Setup:**
     -   Create `backend/src/server.ts`.
     -   Import Express, create an app instance, define a basic `/` route ("Hello from the Backend!"), start the server on a port (e.g., 3001).
     -   Add `"dev": "nodemon src/server.ts"` script to `backend/package.json`.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.5: Read Data from `data.json`:**
+-   [x]   **To-do 1.5: Read Data from `data.json`:**
     -   In `backend/src/server.ts`, import the `fs` module.
     -   Implement logic to read and parse `backend/data.json` into a JavaScript array of `LocalItem` objects.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.6: Create `/api/local-items` Endpoint:**
+-   [x]   **To-do 1.6: Create `/api/local-items` Endpoint:**
     -   In `backend/src/server.ts`, define a GET route at `/api/local-items` that sends the array of `LocalItem` objects as a JSON response (status 200).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.7: Test Backend Endpoint (Manual):**
+-   [x]   **To-do 1.7: Test Backend Endpoint (Manual):**
     -   Run backend (`npm run dev`). Access `http://localhost:3001/api/local-items` in a browser or tool to verify JSON response.
     -   **GitHub Action:** (No code change, ensure testing).
 -   [ ]   **To-do 1.8: Merge Backend Setup:**
