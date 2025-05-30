@@ -21,10 +21,10 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Create `backend/src/types/LocalItem.ts`.
     -   Define the `LocalItem` interface based on `data.json` (e.g., `id: string`, `name: string`, `type: string`, `description: string`, `location?: string`, `features?: string[]`).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.3: Create `data.json` File:**
+-   [x]   **To-do 1.3: Create `data.json` File:**
     -   Create `backend/data.json` with at least 3-4 sample local data items matching the `LocalItem` interface.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.4: Basic Express Server Setup:**
+-   [x]   **To-do 1.4: Basic Express Server Setup:**
     -   Create `backend/src/server.ts`.
     -   Import Express, create an app instance, define a basic `/` route ("Hello from the Backend!"), start the server on a port (e.g., 3001).
     -   Add `"dev": "nodemon src/server.ts"` script to `backend/package.json`.
