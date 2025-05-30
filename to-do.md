@@ -33,7 +33,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   In `backend/src/server.ts`, import the `fs` module.
     -   Implement logic to read and parse `backend/data.json` into a JavaScript array of `LocalItem` objects.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.6: Create `/api/local-items` Endpoint:**
+-   [x]   **To-do 1.6: Create `/api/local-items` Endpoint:**
     -   In `backend/src/server.ts`, define a GET route at `/api/local-items` that sends the array of `LocalItem` objects as a JSON response (status 200).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
 -   [ ]   **To-do 1.7: Test Backend Endpoint (Manual):**
