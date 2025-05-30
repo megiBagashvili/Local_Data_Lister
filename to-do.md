@@ -34,9 +34,9 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Implement logic to read and parse `backend/data.json` into a JavaScript array of `LocalItem` objects.
     -   **GitHub Action:** Commit to `feature/backend-setup`.
 -   [x]   **To-do 1.6: Create `/api/local-items` Endpoint:**
-    -   In `backend/src/server.ts`, define a GET route at `/api/local-items` that sends the array of `LocalItem` objects as a JSON response (status 200). mm
+    -   In `backend/src/server.ts`, define a GET route at `/api/local-items` that sends the array of `LocalItem` objects as a JSON response (status 200).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
--   [ ]   **To-do 1.7: Test Backend Endpoint (Manual):**
+-   [x]   **To-do 1.7: Test Backend Endpoint (Manual):**
     -   Run backend (`npm run dev`). Access `http://localhost:3001/api/local-items` in a browser or tool to verify JSON response.
     -   **GitHub Action:** (No code change, ensure testing).
 -   [ ]   **To-do 1.8: Merge Backend Setup:**
