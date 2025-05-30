@@ -10,7 +10,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 1: Backend Setup & Initial Data (Assigned to: Megi)
 
--   [ ]   **To-do 1.1: Initialize Backend Project:**
+-   [x]   **To-do 1.1: Initialize Backend Project:**
     -   Navigate to the `backend` folder in the terminal.
     -   Run `npm init -y` to create `package.json`.
     -   Install dev dependencies: `npm install typescript ts-node nodemon @types/node --save-dev`.
