@@ -39,7 +39,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 -   [x]   **To-do 1.7: Test Backend Endpoint (Manual):**
     -   Run backend (`npm run dev`). Access `http://localhost:3001/api/local-items` in a browser or tool to verify JSON response.
     -   **GitHub Action:** (No code change, ensure testing).
--   [ ]   **To-do 1.8: Merge Backend Setup:**
+-   [x]   **To-do 1.8: Merge Backend Setup:**
     -   Create PR from `feature/backend-setup` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
