@@ -17,7 +17,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Install Express: `npm install express @types/express --save`.
     -   Initialize TypeScript config: `npx tsc --init`. Adjust `tsconfig.json` (e.g., `outDir`, `rootDir`, `esModuleInterop`, `strict`).
     -   **GitHub Action:** Create branch `feature/backend-setup`.
--   [ ]   **To-do 1.2: Define Backend Data Interface:**
+-   [x]   **To-do 1.2: Define Backend Data Interface:**
     -   Create `backend/src/types/LocalItem.ts`.
     -   Define the `LocalItem` interface based on `data.json` (e.g., `id: string`, `name: string`, `type: string`, `description: string`, `location?: string`, `features?: string[]`).
     -   **GitHub Action:** Commit to `feature/backend-setup`.
