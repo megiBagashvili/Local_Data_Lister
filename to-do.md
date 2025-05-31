@@ -50,7 +50,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Run `npx create-react-app frontend --template typescript`.
     -   `cd frontend`.
     -   **GitHub Action:** Create branch `feature/frontend-setup`.
--   [ ]   **To-do 2.2: Define Frontend Data Interface:**
+-   [x]   **To-do 2.2: Define Frontend Data Interface:**
     -   Create `frontend/src/types/LocalItem.ts`.
     -   Define the **same** `LocalItem` interface as in the backend.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
