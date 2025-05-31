@@ -58,7 +58,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Create `frontend/src/App.tsx`, `frontend/src/components/ItemList.tsx`, `frontend/src/components/ItemCard.tsx`, `frontend/src/components/SearchBar.tsx`.
     -   Implement basic functional components in each (e.g., `const ItemList: React.FC = () => { return <div>Item List</div>; };`).
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.4: Basic App Layout:**
+-   [x]   **To-do 2.4: Basic App Layout:**
     -   In `frontend/src/App.tsx`, import and render `ItemList` and `SearchBar`.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
 -   [ ]   **To-do 2.5: Initial Styling (Optional but Recommended):**
