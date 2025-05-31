@@ -45,7 +45,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 2: Frontend Setup & Initial Component Structure (Assigned to: Mariam)
 
--   [ ]   **To-do 2.1: Initialize Frontend Project:**
+-   [x]   **To-do 2.1: Initialize Frontend Project:**
     -   Navigate to the project root.
     -   Run `npx create-react-app frontend --template typescript`.
     -   `cd frontend`.
