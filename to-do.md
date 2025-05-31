@@ -45,29 +45,29 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 2: Frontend Setup & Initial Component Structure (Assigned to: Mariam)
 
--   [ ]   **To-do 2.1: Initialize Frontend Project:**
+-   [x]   **To-do 2.1: Initialize Frontend Project:**
     -   Navigate to the project root.
     -   Run `npx create-react-app frontend --template typescript`.
     -   `cd frontend`.
     -   **GitHub Action:** Create branch `feature/frontend-setup`.
--   [ ]   **To-do 2.2: Define Frontend Data Interface:**
+-   [x]   **To-do 2.2: Define Frontend Data Interface:**
     -   Create `frontend/src/types/LocalItem.ts`.
     -   Define the **same** `LocalItem` interface as in the backend.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.3: Create Basic Component Structure:**
+-   [x]   **To-do 2.3: Create Basic Component Structure:**
     -   Create `frontend/src/App.tsx`, `frontend/src/components/ItemList.tsx`, `frontend/src/components/ItemCard.tsx`, `frontend/src/components/SearchBar.tsx`.
     -   Implement basic functional components in each (e.g., `const ItemList: React.FC = () => { return <div>Item List</div>; };`).
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.4: Basic App Layout:**
+-   [x]   **To-do 2.4: Basic App Layout:**
     -   In `frontend/src/App.tsx`, import and render `ItemList` and `SearchBar`.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.5: Initial Styling (Optional but Recommended):**
+-   [x]   **To-do 2.5: Initial Styling:**
     -   Add basic CSS in `frontend/src/App.css` or CSS modules for minimal visual structure. Import and apply styles.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.6: Run Frontend Locally:**
+-   [x]   **To-do 2.6: Run Frontend Locally:**
     -   In `frontend`, run `npm start`. Verify basic component rendering at `http://localhost:3000`.
     -   **GitHub Action:** (No code change, ensure testing).
--   [ ]   **To-do 2.7: Merge Frontend Setup:**
+-   [x]   **To-do 2.7: Merge Frontend Setup:**
     -   Create PR from `feature/frontend-setup` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
