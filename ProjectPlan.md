@@ -89,11 +89,11 @@
 
 ###   Week 1: Planning & Setup
 
--   [ ]   Project setup (React + Node + TypeScript)
--   [ ]   Create Data Source File (JSON)
--   [ ]   Define Data Interface (TypeScript - Backend)
--   [ ]   Basic project structure (creating folders for frontend and backend)
--   [ ]   Initial Git repository setup
+-   [x]   Project setup (React + Node + TypeScript)
+-   [x]   Create Data Source File (JSON)
+-   [x]   Define Data Interface (TypeScript - Backend)
+-   [x]   Basic project structure (creating folders for frontend and backend)
+-   [x]   Initial Git repository setup
 
 ###   Week 2: Minimal App + Testing
 
