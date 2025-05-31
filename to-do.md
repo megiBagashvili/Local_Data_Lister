@@ -54,7 +54,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Create `frontend/src/types/LocalItem.ts`.
     -   Define the **same** `LocalItem` interface as in the backend.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.3: Create Basic Component Structure:**
+-   [x]   **To-do 2.3: Create Basic Component Structure:**
     -   Create `frontend/src/App.tsx`, `frontend/src/components/ItemList.tsx`, `frontend/src/components/ItemCard.tsx`, `frontend/src/components/SearchBar.tsx`.
     -   Implement basic functional components in each (e.g., `const ItemList: React.FC = () => { return <div>Item List</div>; };`).
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
