@@ -64,10 +64,10 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 -   [x]   **To-do 2.5: Initial Styling:**
     -   Add basic CSS in `frontend/src/App.css` or CSS modules for minimal visual structure. Import and apply styles.
     -   **GitHub Action:** Commit to `feature/frontend-setup`.
--   [ ]   **To-do 2.6: Run Frontend Locally:**
+-   [x]   **To-do 2.6: Run Frontend Locally:**
     -   In `frontend`, run `npm start`. Verify basic component rendering at `http://localhost:3000`.
     -   **GitHub Action:** (No code change, ensure testing).
--   [ ]   **To-do 2.7: Merge Frontend Setup:**
+-   [x]   **To-do 2.7: Merge Frontend Setup:**
     -   Create PR from `feature/frontend-setup` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
