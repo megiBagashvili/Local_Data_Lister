@@ -75,11 +75,11 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 3: Frontend Data Fetching, Display, & Search (Assigned to: Megi)
 
--   [ ]   **To-do 3.1: Install Axios (or use Fetch API):**
+-   [x]   **To-do 3.1: Install Axios (or use Fetch API):**
     -   In `frontend`, install Axios: `npm install axios`. (Or decide to use the built-in `fetch`).
     -   **GitHub Action:** Create branch `feature/frontend-data-fetching`. Commit dependency installation.
 
--   [ ]   **To-do 3.2: Implement Data Fetching Logic:**
+-   [x]   **To-do 3.2: Implement Data Fetching Logic:**
     -   In `frontend/src/App.tsx`, create a `localItems` state using `useState<LocalItem[]>`.
     -   Use `useEffect` to fetch data from `http://localhost:3001/api/local-items` on mount.
     -   Use Axios (or `fetch`) to make the GET request and update the `localItems` state with the response data. Handle potential errors.
