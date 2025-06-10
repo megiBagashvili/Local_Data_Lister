@@ -103,7 +103,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Ensure backend (`npm run dev` in `backend`) and frontend (`npm start` in `frontend`) are running. Verify data from the backend is displayed in the frontend.
     -   **GitHub Action:** (No code change, ensure testing).
 
--   [ ]   **To-do 3.7: Manage Search State:**
+-   [x]   **To-do 3.7: Manage Search State:**
     -   In `frontend/src/App.tsx`, create a new state for the search query (e.g., `const [searchQuery, setSearchQuery] = useState('');`).
     -   **GitHub Action:** Commit search state to `feature/frontend-data-fetching`.
 

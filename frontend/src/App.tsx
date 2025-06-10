@@ -9,6 +9,7 @@ function App() {
   const [localItems, setLocalItems] = useState<LocalItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchLocalData = async () => {
