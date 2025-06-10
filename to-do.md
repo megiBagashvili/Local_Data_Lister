@@ -99,7 +99,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Display relevant properties (e.g., `localItem.name`, `localItem.type`, `localItem.description`) in the JSX.
     -   **GitHub Action:** Commit rendering in `ItemCard` to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.6: Test Data Display (Local Backend):**
+-   [x]   **To-do 3.6: Test Data Display (Local Backend):**
     -   Ensure backend (`npm run dev` in `backend`) and frontend (`npm start` in `frontend`) are running. Verify data from the backend is displayed in the frontend.
     -   **GitHub Action:** (No code change, ensure testing).
 
