@@ -41,10 +41,13 @@ function App() {
         <h1>Local Data Lister</h1>
       </header>
       <main>
-        <SearchBar />
-        {loading && <p>Loading local data...</p>} {/* Display loading message */}
-        {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-        {!loading && !error && <ItemList localItems={localItems} />} {/* Pass localItems to ItemList */}
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        {loading && <p>Loading local data...</p>}
+        {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
+        {!loading && !error && <ItemList localItems={localItems} />}
       </main>
     </div>
   );

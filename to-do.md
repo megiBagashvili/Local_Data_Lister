@@ -107,7 +107,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   In `frontend/src/App.tsx`, create a new state for the search query (e.g., `const [searchQuery, setSearchQuery] = useState('');`).
     -   **GitHub Action:** Commit search state to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.8: Handle Search Input:**
+-   [x]   **To-do 3.8: Handle Search Input:**
     -   Pass the `searchQuery` state and the `setSearchQuery` function as props to the `<SearchBar />` component.
     -   In `SearchBar.tsx`, make the input a controlled component by linking its `value` and `onChange` event to the props.
     -   **GitHub Action:** Commit search input handling to `feature/frontend-data-fetching`.
