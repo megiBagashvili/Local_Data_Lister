@@ -85,16 +85,16 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Use Axios (or `fetch`) to make the GET request and update the `localItems` state with the response data. Handle potential errors.
     -   **GitHub Action:** Commit data fetching logic to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.3: Pass Data to `ItemList` Component:**
+-   [x]   **To-do 3.3: Pass Data to `ItemList` Component:**
     -   In `frontend/src/App.tsx`, pass the `localItems` state as a prop to the `<ItemList />` component.
     -   **GitHub Action:** Commit prop passing to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.4: Render Data in `ItemList`:**
+-   [x]   **To-do 3.4: Render Data in `ItemList`:**
     -   In `frontend/src/components/ItemList.tsx`, receive the `localItems` prop (`LocalItem[]`).
     -   Use `.map()` to iterate over `localItems` and render an `<ItemCard localItem={item} key={item.id} />` for each.
     -   **GitHub Action:** Commit rendering logic to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.5: Render Data in `ItemCard`:**
+-   [x]   **To-do 3.5: Render Data in `ItemCard`:**
     -   In `frontend/src/components/ItemCard.tsx`, receive the `localItem` prop (`LocalItem`).
     -   Display relevant properties (e.g., `localItem.name`, `localItem.type`, `localItem.description`) in the JSX.
     -   **GitHub Action:** Commit rendering in `ItemCard` to `feature/frontend-data-fetching`.
