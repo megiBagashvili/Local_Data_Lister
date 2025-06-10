@@ -1,24 +1,35 @@
 import React from 'react';
+import { LocalItem } from '../types/LocalItem';
+import ItemCard from './ItemCard';
 
 /**
  * @interface ItemListProps
  * @description Defines the props for the ItemList component.
- * Currently, it doesn't take any specific props, but will later.
+ * It expects an array of LocalItem objects.
  */
 interface ItemListProps {
-  // We will define props here later
+  localItems: LocalItem[];
 }
 
 /**
  * @function ItemList
- * @description A functional React component that will display a list of local items.
- * For now, it just gives placeholder text.
+ * @description A functional React component that displays a list of local items.
+ * It iterates over the localItems prop and renders an ItemCard for each.
  */
-const ItemList: React.FC<ItemListProps> = () => {
+const ItemList: React.FC<ItemListProps> = ({ localItems }) => {
   return (
     <div className="item-list-container">
       <h2>Local Items List</h2>
-      <p>This is where the list of items will appear.</p>
+
+      {localItems.length === 0 ? (
+        <p>No local items to display. Please ensure the backend is running and serving data.</p>
+      ) : (
+        <div className="items-grid">
+          {localItems.map((item) => (
+            <ItemCard key={item.id} localItem={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
