@@ -112,12 +112,12 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   In `SearchBar.tsx`, make the input a controlled component by linking its `value` and `onChange` event to the props.
     -   **GitHub Action:** Commit search input handling to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.9: Filter Displayed Data:**
+-   [x]   **To-do 3.9: Filter Displayed Data:**
     -   In `App.tsx`, before passing data to `<ItemList />`, create a new filtered array based on the `searchQuery`.
     -   Pass this `filteredItems` array to the `ItemList` component instead of the original `localItems`.
     -   **GitHub Action:** Commit filtering logic to `feature/frontend-data-fetching`.
 
--   [ ]   **To-do 3.10: Merge Frontend Data & Search:**
+-   [x]   **To-do 3.10: Merge Frontend Data & Search:**
     -   Create PR from `feature/frontend-data-fetching` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
