@@ -123,23 +123,23 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 4: Backend Setup for API (Assigned to: Mariam)
 
--   [ ]   **To-do 4.1: Refactor Backend for API:**
+-   [x]   **To-do 4.1: Refactor Backend for API:**
     -   In `backend/src/server.ts`, refactor the code to strictly serve the API. Remove any code related to serving static files or HTML. The server should only respond with JSON data.
     -   **GitHub Action:** Create branch `feature/backend-api`. Commit backend refactor.
--   [ ]   **To-do 4.2: Ensure API Endpoint Functionality:**
+-   [x]   **To-do 4.2: Ensure API Endpoint Functionality:**
     -   Double-check that the `/api/local-items` endpoint is working correctly and returning the expected JSON data.
     -   **GitHub Action:** Commit any necessary fixes to `feature/backend-api`.
--   [ ]   **To-do 4.3: Configure CORS (if needed):**
+-   [x]   **To-do 4.3: Configure CORS (if needed):**
     -   If you anticipate your frontend and backend running on different ports or domains (which they will on EC2 if served separately), install and configure the `cors` middleware in your backend: `npm install cors @types/cors`.
     -   This will allow requests from your frontend to your backend.
     -   **GitHub Action:** Commit CORS configuration (if needed).
--   [ ]   **To-do 4.4: Test API Endpoint:**
+-   [x]   **To-do 4.4: Test API Endpoint:**
     -   Use a tool like `curl` or Postman to test the `/api/local-items` endpoint and ensure it returns the correct data and headers.
     -   **GitHub Action:** (No code change, ensure testing).
--   [ ]   **To-do 4.5: Create Production Build Script (Backend):**
+-   [x]   **To-do 4.5: Create Production Build Script (Backend):**
     -   Add a script to your `backend/package.json` to start the server in production mode (e.g., `"start:prod": "node dist/server.js"`). Ensure that you have compiled your TypeScript code to JavaScript (`npx tsc`).
     -   **GitHub Action:** Commit production build script.
--   [ ]   **To-do 4.6: Merge Backend API Setup:**
+-   [x]   **To-do 4.6: Merge Backend API Setup:**
     -   Create PR from `feature/backend-api` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
