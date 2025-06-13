@@ -123,10 +123,10 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 
 ###   Chunk 4: Backend Setup for API (Assigned to: Mariam)
 
--   [ ]   **To-do 4.1: Refactor Backend for API:**
+-   [x]   **To-do 4.1: Refactor Backend for API:**
     -   In `backend/src/server.ts`, refactor the code to strictly serve the API. Remove any code related to serving static files or HTML. The server should only respond with JSON data.
     -   **GitHub Action:** Create branch `feature/backend-api`. Commit backend refactor.
--   [ ]   **To-do 4.2: Ensure API Endpoint Functionality:**
+-   [x]   **To-do 4.2: Ensure API Endpoint Functionality:**
     -   Double-check that the `/api/local-items` endpoint is working correctly and returning the expected JSON data.
     -   **GitHub Action:** Commit any necessary fixes to `feature/backend-api`.
 -   [ ]   **To-do 4.3: Configure CORS (if needed):**

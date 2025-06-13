@@ -23,10 +23,6 @@ fs.readFile('data.json', 'utf-8', (err, data) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello from the Backend!');
-});
-
 app.get('/api/local-items', (req, res) => {
   res.status(200).json(localItems);
 });
