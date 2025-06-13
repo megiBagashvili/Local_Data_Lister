@@ -136,7 +136,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 -   [ ]   **To-do 4.4: Test API Endpoint:**
     -   Use a tool like `curl` or Postman to test the `/api/local-items` endpoint and ensure it returns the correct data and headers.
     -   **GitHub Action:** (No code change, ensure testing).
--   [ ]   **To-do 4.5: Create Production Build Script (Backend):**
+-   [x]   **To-do 4.5: Create Production Build Script (Backend):**
     -   Add a script to your `backend/package.json` to start the server in production mode (e.g., `"start:prod": "node dist/server.js"`). Ensure that you have compiled your TypeScript code to JavaScript (`npx tsc`).
     -   **GitHub Action:** Commit production build script.
 -   [ ]   **To-do 4.6: Merge Backend API Setup:**
