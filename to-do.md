@@ -129,7 +129,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 -   [x]   **To-do 4.2: Ensure API Endpoint Functionality:**
     -   Double-check that the `/api/local-items` endpoint is working correctly and returning the expected JSON data.
     -   **GitHub Action:** Commit any necessary fixes to `feature/backend-api`.
--   [ ]   **To-do 4.3: Configure CORS (if needed):**
+-   [x]   **To-do 4.3: Configure CORS (if needed):**
     -   If you anticipate your frontend and backend running on different ports or domains (which they will on EC2 if served separately), install and configure the `cors` middleware in your backend: `npm install cors @types/cors`.
     -   This will allow requests from your frontend to your backend.
     -   **GitHub Action:** Commit CORS configuration (if needed).
