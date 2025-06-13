@@ -139,7 +139,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
 -   [x]   **To-do 4.5: Create Production Build Script (Backend):**
     -   Add a script to your `backend/package.json` to start the server in production mode (e.g., `"start:prod": "node dist/server.js"`). Ensure that you have compiled your TypeScript code to JavaScript (`npx tsc`).
     -   **GitHub Action:** Commit production build script.
--   [ ]   **To-do 4.6: Merge Backend API Setup:**
+-   [x]   **To-do 4.6: Merge Backend API Setup:**
     -   Create PR from `feature/backend-api` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
