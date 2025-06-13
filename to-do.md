@@ -133,7 +133,7 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   If you anticipate your frontend and backend running on different ports or domains (which they will on EC2 if served separately), install and configure the `cors` middleware in your backend: `npm install cors @types/cors`.
     -   This will allow requests from your frontend to your backend.
     -   **GitHub Action:** Commit CORS configuration (if needed).
--   [ ]   **To-do 4.4: Test API Endpoint:**
+-   [x]   **To-do 4.4: Test API Endpoint:**
     -   Use a tool like `curl` or Postman to test the `/api/local-items` endpoint and ensure it returns the correct data and headers.
     -   **GitHub Action:** (No code change, ensure testing).
 -   [x]   **To-do 4.5: Create Production Build Script (Backend):**
