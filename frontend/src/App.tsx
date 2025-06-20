@@ -44,7 +44,7 @@ function App() {
 
     return localItems.filter(item => {
       const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
-      const descriptionMatch = item.description.toLowerCase().includes(lowerCaseQuery);
+      const descriptionMatch = item.description?.toLowerCase().includes(lowerCaseQuery) || false;
       const typeMatch = item.type.toLowerCase().includes(lowerCaseQuery);
       const locationMatch = item.location?.toLowerCase().includes(lowerCaseQuery) || false;
       const featuresMatch = item.features?.some(feature => feature.toLowerCase().includes(lowerCaseQuery)) || false;
