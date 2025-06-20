@@ -144,6 +144,16 @@ For each major chunk of work, create a new branch named `feature/[chunk-name]`. 
     -   Create PR from `feature/backend-api` to `main`. Review and merge.
     -   **GitHub Action:** Merge PR. Note merge commit link.
 
+## Some tasks added to refine project readinessfor further improvements (such as moving on to UI/UXpart and frontend) 
+Task 1: Update LocalItem Interface & Populate Data with New Categories
+Task 2: Implement Robust Data Loading and Validation
+Task 3: Modularize API Routes
+Task 4: Implement Basic Configuration Management
+Task 5: Set up Backend Unit Testing (Jest)
+Task 6: Write Unit Tests for API Endpoint Logic
+Task 7: Write Unit Tests for Data Loading and Validation Logic
+
+
 ##   Phase 3: Week 3 - Deployment + Development (Branches: `feature/ec2-setup`, `feature/ec2-deployment`)
 
 ###   Chunk 5: AWS EC2 Instance Setup (Assigned to: Megi)
