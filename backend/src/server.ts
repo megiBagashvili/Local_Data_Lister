@@ -1,32 +1,20 @@
 import express from 'express';
-import * as fs from 'fs';
-import { LocalItem } from './types/LocalItem';
 import cors from 'cors';
+import localItemsRouter from './routes/localItemsRouter';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 
-let localItems: LocalItem[] = [];
+app.use('/api', localItemsRouter);
 
-fs.readFile('data.json', 'utf-8', (err, data) => {
-  if (err) {
-    console.error('Error reading data.json:', err);
-  } else {
-    try {
-      localItems = JSON.parse(data) as LocalItem[];
-      console.log('Data loaded successfully from data.json');
-    } catch (parseError) {
-      console.error('Error parsing data.json:', parseError);
-    }
-  }
-});
+// commented for testing 
+// app.listen(PORT, () => {
+//   console.log(`[Server] Server is running on http://localhost:${PORT}`);
+// });
 
-app.get('/api/local-items', (req, res) => {
-  res.status(200).json(localItems);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+export default app;
