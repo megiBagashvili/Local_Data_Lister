@@ -1,90 +1,42 @@
-import * as fs from "fs";
-import { loadData } from "./localItemsRouter";
+import request from 'supertest';
+import app from '../server';
+import db from '../db';
 
-jest.mock("fs");
+jest.mock('../db');
 
-const mockedReadFileSync = fs.readFileSync as jest.Mock;
+const mockedDb = db as jest.Mocked<typeof db>;
 
-describe("Data Loading and Validation Logic (loadData)", () => {
-  const originalConsoleLog = console.log;
-  const originalConsoleError = console.error;
-  let consoleOutput: string[] = [];
+describe('GET /api/local-items', () => {
 
-  beforeEach(() => {
-    console.log = (message) => consoleOutput.push(message);
-    console.error = (message) => consoleOutput.push(message);
-    consoleOutput = [];
+  beforeAll(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterAll(() => {
-    console.log = originalConsoleLog;
-    console.error = originalConsoleError;
+    (console.log as jest.Mock).mockRestore();
+    (console.error as jest.Mock).mockRestore();
   });
 
-  describe("when data.json is well-formed and valid", () => {
-    it("should load, parse, and validate the data without errors", () => {
-      const validData = [
-        {
-          id: "res-1",
-          name: "Palaty",
-          type: "restaurant",
-          location: "2 Alexander Pushkin Street, Kutaisi 4600",
-          photos: ["/images/palaty.jpg"],
-        },
-      ];
+  test('should return a 200 OK status and an array of items on success', async () => {
+    const mockItems = [
+      { id: 'res-1', name: 'Mock Restaurant', type: 'restaurant' },
+    ];
+    (mockedDb.query.items.findMany as jest.Mock).mockResolvedValue(mockItems);
 
-      mockedReadFileSync.mockReturnValue(JSON.stringify(validData));
+    const response = await request(app).get('/api/local-items');
 
-      expect(() => loadData()).not.toThrow();
-
-      const result = loadData();
-      expect(result).toEqual(validData);
-
-      expect(consoleOutput).toContain(
-        "[Router] Successfully loaded and validated 1 items from data.json."
-      );
-    });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockItems);
   });
 
-  describe("when data.json is missing or unreadable", () => {
-    it("should throw an error", () => {
-      const errorMessage = "ENOENT: no such file or directory";
-      mockedReadFileSync.mockImplementation(() => {
-        throw new Error(errorMessage);
-      });
+  test('should return a 500 Internal Server Error if the database query fails', async () => {
+    const dbError = new Error('Database connection failed');
+    (mockedDb.query.items.findMany as jest.Mock).mockRejectedValue(dbError);
 
-      expect(() => loadData()).toThrow(errorMessage);
-    });
-  });
+    const response = await request(app).get('/api/local-items');
 
-  describe("when data.json is malformed", () => {
-    it("should throw an error if the JSON is syntactically incorrect", () => {
-      const malformedJson = '[{"id": "res-1", "name": "Test"';
-      mockedReadFileSync.mockReturnValue(malformedJson);
-      expect(() => loadData()).toThrow();
-    });
-
-    it("should throw an error if the data violates the LocalItem schema", () => {
-      const schemaInvalidData = [
-        {
-          name: "Invalid Item",
-          type: "cafe",
-          location: "Someplace",
-          photos: [],
-        },
-        {
-          id: "item-2",
-          name: "Another Invalid Item",
-          type: "invalid_type",
-          location: "Someplace else",
-          photos: ["/photo.jpg"],
-        },
-      ];
-      mockedReadFileSync.mockReturnValue(JSON.stringify(schemaInvalidData));
-
-      expect(() => loadData()).toThrow(
-        "Invalid data.json structure. Router cannot initialize."
-      );
-    });
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ message: 'Error fetching data' });
   });
 });

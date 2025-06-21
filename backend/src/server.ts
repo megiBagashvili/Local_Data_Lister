@@ -9,11 +9,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
-
 app.use('/api', localItemsRouter);
 
-app.listen(PORT, () => {
-  console.log(`[Server] Server is running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`[Server] Server is running on http://localhost:${PORT}`);
+  });
+}
 
 export default app;
+
