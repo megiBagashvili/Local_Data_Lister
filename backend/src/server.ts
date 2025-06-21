@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import localItemsRouter from './routes/localItemsRouter';
+import localItemsRouter from './api/localItemsRouter';
 import dotenv from 'dotenv';
 
 dotenv.config();
