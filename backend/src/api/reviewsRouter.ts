@@ -96,4 +96,32 @@ router.post('/items/:itemId/reviews', authenticateToken, async (req: Authenticat
   }
 });
 
+
+/**
+ * @route   GET /api/items/:itemId/reviews
+ * @desc    Fetches all reviews for a specific item, including the reviewer's name.
+ * @access  Public
+ */
+router.get('/items/:itemId/reviews', async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const { itemId } = req.params;
+        const itemReviews = await db.query.reviews.findMany({
+            where: eq(reviews.itemId, itemId),
+            with: {
+                user: {
+                    columns: {
+                        name: true,
+                    },
+                },
+            },
+        });
+        res.status(200).json(itemReviews);
+
+    } catch (error) {
+        console.error('[Fetch Reviews] An error occurred:', error);
+        res.status(500).json({ message: 'An error occurred while fetching reviews.' });
+    }
+});
+
+
 export default router;
