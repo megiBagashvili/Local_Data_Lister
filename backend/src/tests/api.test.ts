@@ -20,7 +20,8 @@ const mockLocalItems = [
   }
 ];
 
-jest.mock('../routes/localItemsRouter', () => {
+// Changed from routes to api because the test could not be run after project reorganization
+jest.mock('../api/localItemsRouter', () => {
   const express = require('express');
   const mockRouter = express.Router();
   mockRouter.get('/local-items', (req: Request, res: Response) => {
