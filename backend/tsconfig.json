@@ -12,7 +12,7 @@
   "include": [
     "src/**/*.ts",
     "drizzle.config.ts"
-  ],
+, "src/api/localItemsRouter.ts"  ],
   "exclude": [
     "node_modules"
   ]
