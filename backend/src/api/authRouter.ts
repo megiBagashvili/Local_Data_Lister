@@ -5,9 +5,15 @@ import db from '../db';
 import { users } from '../db/schema';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
+import { authenticateToken, AuthenticatedRequest } from '../middleware/authenticateToken';
 
 const router = Router();
 const SALT_ROUNDS = 10;
+
+/**
+ * Defines the validation schema for new user registration.
+ * Enforces rules for name, email format, password strength, and password confirmation.
+ */
 const registrationSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters long." }),
   email: z.string().email({ message: "Please provide a valid email address." }),
@@ -20,7 +26,7 @@ const registrationSchema = z.object({
 
 /**
  * @route   POST /api/auth/register
- * @desc    Registers a new user with advanced validation.
+ * @desc    Registers a new user after validating input and checking for uniqueness.
  * @access  Public
  */
 router.post('/register', async (req: Request, res: Response): Promise<void> => {
@@ -61,68 +67,49 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
 
 /**
  * @route   POST /api/auth/login
- * @desc    Authenticates a user and returns a JWT.
+ * @desc    Authenticates a user by email and password, returning a JWT on success.
  * @access  Public
- * @body    { email: string, password: string }
- *
- * @returns {Promise<void>}
- *
- * @success
- * - **Status Code:** 200 OK
- * - **Body:** { "message": "Logged in successfully.", "token": "your.jwt.here" }
- *
- * @failure
- * - **Status Code:** 400 Bad Request (for missing input)
- * - **Body:** { "message": "Please provide both email and password." }
- * - **Status Code:** 401 Unauthorized (for invalid credentials)
- * - **Body:** { "message": "Invalid credentials." }
- * - **Status Code:** 500 Internal Server Error
- * - **Body:** { "message": "An error occurred during login." }
  */
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      res.status(400).json({ message: 'Please provide both email and password.' });
-      return;
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            res.status(400).json({ message: 'Please provide both email and password.' });
+            return;
+        }
+        const user = await db.query.users.findFirst({
+            where: eq(users.email, email),
+        });
+        const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false;
+        if (!user || !isPasswordValid) {
+            res.status(401).json({ message: 'Invalid credentials.' });
+            return;
+        }
+        if (!process.env.JWT_SECRET) {
+            console.error("FATAL ERROR: JWT_SECRET is not defined.");
+            res.status(500).json({ message: 'Internal server configuration error.' });
+            return;
+        }
+        const payload = { id: user.id, name: user.name, email: user.email };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log(`[Login] User logged in successfully: ${email}`);
+        res.status(200).json({
+            message: 'Logged in successfully.',
+            token: token,
+        });
+    } catch (error) {
+        console.error('[Login] An error occurred:', error);
+        res.status(500).json({ message: 'An error occurred during login.' });
     }
+});
 
-    const user = await db.query.users.findFirst({
-      where: eq(users.email, email),
-    });
-
-    
-    const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false;
-
-    if (!user || !isPasswordValid) {
-      res.status(401).json({ message: 'Invalid credentials.' });
-      return;
-    }
-
-    if (!process.env.JWT_SECRET) {
-        console.error("FATAL ERROR: JWT_SECRET is not defined.");
-        res.status(500).json({ message: 'Internal server configuration error.' });
-        return;
-    }
-    
-    const payload = {
-      id: user.id,
-      name: user.name,
-      email: user.email
-    };
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    console.log(`[Login] User logged in successfully: ${email}`);
-    res.status(200).json({
-      message: 'Logged in successfully.',
-      token: token,
-    });
-
-  } catch (error) {
-    console.error('[Login] An error occurred:', error);
-    res.status(500).json({ message: 'An error occurred during login.' });
-  }
+/**
+ * @route   GET /api/auth/profile
+ * @desc    Fetches the profile of the currently authenticated user.
+ * @access  Private (Requires JWT)
+ */
+router.get('/profile', authenticateToken, (req: AuthenticatedRequest, res: Response) => {
+  res.status(200).json({ user: req.user });
 });
 
 
