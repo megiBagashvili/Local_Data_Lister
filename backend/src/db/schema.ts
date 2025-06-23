@@ -6,6 +6,7 @@ import {
   timestamp,
   uuid,
   integer,
+  primaryKey
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
@@ -51,12 +52,24 @@ export const reviews = pgTable('reviews', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+export const favorites = pgTable('favorites', {
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id').notNull().references(() => items.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  }, (table) => {
+    return {
+      pk: primaryKey({ columns: [table.userId, table.itemId] }),
+    };
+});
+
 export const usersRelations = relations(users, ({ many }) => ({
   reviews: many(reviews),
+  favorites: many(favorites),
 }));
 
 export const itemsRelations = relations(items, ({ many }) => ({
   reviews: many(reviews),
+  favorites: many(favorites),
 }));
 
 export const reviewsRelations = relations(reviews, ({ one }) => ({
@@ -68,4 +81,15 @@ export const reviewsRelations = relations(reviews, ({ one }) => ({
     fields: [reviews.itemId],
     references: [items.id],
   }),
+}));
+
+export const favoritesRelations = relations(favorites, ({ one }) => ({
+    user: one(users, {
+        fields: [favorites.userId],
+        references: [users.id],
+    }),
+    item: one(items, {
+        fields: [favorites.itemId],
+        references: [items.id],
+    }),
 }));
