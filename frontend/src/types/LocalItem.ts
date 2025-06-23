@@ -5,7 +5,6 @@
  * This interface ensures strict type consistency and data integrity throughout
  * both the backend and frontend applications.
  */
-
 export interface LocalItem {
   id: string;
   name: string;
@@ -30,7 +29,7 @@ export interface LocalItem {
   location: string;
   photos: string[];
   reviewsOrAdvice?: string;
-  rating?: number;
+  rating?: number | string | null;
   price?: string;
   knownFor?: string;
   openingHours?: string;
@@ -41,4 +40,5 @@ export interface LocalItem {
   admissionFee?: string;
   gettingThere?: string;
   features?: string[];
+  favoriteCount?: number;
 }

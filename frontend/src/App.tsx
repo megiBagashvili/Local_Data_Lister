@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
+import { io, Socket } from 'socket.io-client';
 import './App.css';
 import ItemList from './components/ItemList';
 import SearchBar from './components/SearchBar';
 import { LocalItem } from './types/LocalItem';
+
+interface FavoritesUpdate {
+  itemId: string;
+  newCount: number;
+}
 
 function App() {
   const [localItems, setLocalItems] = useState<LocalItem[]>([]);
@@ -36,6 +42,33 @@ function App() {
   useEffect(() => {
     fetchLocalData();
   }, [fetchLocalData]);
+
+  useEffect(() => {
+    const socket: Socket = io('http://localhost:8080');
+
+    socket.on('connect', () => {
+      console.log('Socket.IO connected successfully:', socket.id);
+    });
+
+    socket.on('favorites-updated', (data: FavoritesUpdate) => {
+      console.log('Received favorites update:', data);
+      setLocalItems(prevItems =>
+        prevItems.map(item =>
+          item.id === data.itemId
+            ? { ...item, favoriteCount: data.newCount }
+            : item
+        )
+      );
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Socket.IO disconnected.');
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleReviewSubmit = async (itemId: string, rating: number, comment: string) => {
     if (!token) {
