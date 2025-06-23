@@ -6,7 +6,7 @@ import { Server } from 'socket.io';
 import localItemsRouter from './api/localItemsRouter';
 import authRouter from './api/authRouter';
 import reviewsRouter from './api/reviewsRouter';
-import favoritesRouter from './api/favoritesRouter';
+import createFavoritesRouter from './api/favoritesRouter';
 
 dotenv.config();
 
@@ -23,7 +23,8 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
-app.use('/api', authRouter);
+const favoritesRouter = createFavoritesRouter(io);
+app.use('/api/auth', authRouter);
 app.use('/api', localItemsRouter);
 app.use('/api', reviewsRouter);
 app.use('/api', favoritesRouter);
