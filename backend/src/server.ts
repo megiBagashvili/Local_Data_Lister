@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import localItemsRouter from './api/localItemsRouter';
 import authRouter from './api/authRouter';
 import reviewsRouter from './api/reviewsRouter';
+import favoritesRouter from './api/favoritesRouter';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api', localItemsRouter);
 app.use('/api', reviewsRouter);
+app.use('/api', favoritesRouter);
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
