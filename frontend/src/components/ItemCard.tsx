@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LocalItem } from '../types/LocalItem';
+import ReviewForm from './ReviewForm';
 
-/**
- * @interface ItemCardProps
- * @description Defines the props for the ItemCard component.
- * It now expects a single LocalItem object.
- */
 interface ItemCardProps {
   localItem: LocalItem;
+  token: string | null;
+  onReviewSubmit: (itemId: string, rating: number, comment: string) => void;
 }
 
-/**
- * @function ItemCard
- * @description A functional React component that displays details of a single local item.
- * It uses the localItem prop to render the item's name, type, and description.
- */
-const ItemCard: React.FC<ItemCardProps> = ({ localItem }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit }) => {
+  const [isReviewFormVisible, setReviewFormVisible] = useState(false);
+
+  const handleFormSubmit = (itemId: string, rating: number, comment: string) => {
+    onReviewSubmit(itemId, rating, comment);
+    setReviewFormVisible(false);
+  };
+
   return (
     <div className="item-card">
       <h3>{localItem.name}</h3>
       <p><strong>Type:</strong> {localItem.type}</p>
+      {localItem.rating && <p><strong>Rating:</strong> {localItem.rating} / 5.0</p>}
       <p>{localItem.description}</p>
       {localItem.location && <p><small>Location: {localItem.location}</small></p>}
-      {localItem.features && localItem.features.length > 0 && (
-        <p><small>Features: {localItem.features.join(', ')}</small></p>
+      
+      {token && !isReviewFormVisible && (
+        <button onClick={() => setReviewFormVisible(true)} className="btn-review">
+          Leave a Review
+        </button>
+      )}
+
+      {isReviewFormVisible && (
+        <ReviewForm
+          itemId={localItem.id}
+          onSubmit={handleFormSubmit}
+          onCancel={() => setReviewFormVisible(false)}
+        />
       )}
     </div>
   );
