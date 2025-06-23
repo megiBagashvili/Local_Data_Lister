@@ -17,8 +17,7 @@ export interface LocalItem {
     | "5-star hotel"
     | "bar"
     | "park"
-    | "church/monastery"
-    | "long_type_here_so_it_wraps_nicely_and_is_readable"
+    | "church/monastery" 
     | "museum"
     | "train station"
     | "bridge"
@@ -41,4 +40,5 @@ export interface LocalItem {
   gettingThere?: string;
   features?: string[];
   favoriteCount?: number;
+  isFavoritedByUser?: boolean;
 }

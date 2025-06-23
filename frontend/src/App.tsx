@@ -22,7 +22,19 @@ function App() {
   const fetchLocalData = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get<LocalItem[]>('http://localhost:8080/api/local-items');
+
+      const headers: { [key: string]: string } = {
+        'Content-Type': 'application/json',
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await axios.get<LocalItem[]>('http://localhost:8080/api/local-items', {
+        headers,
+      });
+
       setLocalItems(response.data);
       setError(null);
     } catch (err) {
@@ -37,7 +49,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     fetchLocalData();
