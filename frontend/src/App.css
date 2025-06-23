@@ -79,6 +79,7 @@ p {
   background-color: #282c34;
   color: white;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .review-status-message {
@@ -188,3 +189,75 @@ p {
   background-color: #f4a261;
 }
 
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-show-reviews {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #3a3f4a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-show-reviews:hover {
+  background-color: #4f5562;
+}
+
+.reviews-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  text-align: left;
+}
+
+.review-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review-card {
+  background-color: #2f333b;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #e76f51;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-author {
+  font-size: 1.1rem;
+  color: #e9c46a;
+}
+
+.review-comment {
+  font-style: italic;
+  color: #ccc;
+  margin: 0;
+  padding-left: 5px;
+}
+
+.no-reviews-message {
+  color: #888;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.review-stars span {
+  font-size: 1.2rem;
+}
