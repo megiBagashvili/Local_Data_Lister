@@ -12,7 +12,7 @@
 
 .item-list-container {
   border: 1px solid #ddd;
-   padding: 1rem;
+  padding: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -23,6 +23,7 @@
   padding: 1rem;
   margin: 0.75rem 0;
   transition: all 0.2s ease-in-out;
+  text-align: left;
 }
 
 .item-card:hover {
@@ -54,7 +55,8 @@ h1 {
 
 h3 {
   font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+  margin-right: auto;
 }
 
 p {
@@ -67,6 +69,8 @@ p {
   background-color: #3a3f4a;
   border-radius: 8px;
   margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
   width: 80%;
   max-width: 500px;
 }
@@ -92,9 +96,57 @@ p {
   text-align: center;
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.favorite-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.15);
+}
+
+.favorite-button.favorited {
+  color: #e74c3c;
+}
+
+.favorite-button:disabled {
+  cursor: not-allowed;
+  color: #e0e0e0;
+}
+
+.favorite-count {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.error-message-small {
+    color: #c0392b;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
 .btn-review {
   display: block;
-  width: 100%;
   margin-top: 15px;
   padding: 10px 15px;
   border-radius: 8px;
@@ -153,7 +205,7 @@ p {
   color: #333;
   font-family: inherit;
   font-size: 1rem;
-  resize: vertical;
+  resize: vertical;  box-sizing: border-box;
 }
 
 .review-form-actions {
