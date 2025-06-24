@@ -199,3 +199,36 @@
 .btn-show-reviews:hover {
     background-color: #dee2e6;
 }
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: transparent;
+  border-bottom: none; 
+}
+
+
+.search-input {
+  width: 50%;
+  max-width: 600px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.search-input::placeholder {
+  color: #adb5bd;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #ced4da;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
