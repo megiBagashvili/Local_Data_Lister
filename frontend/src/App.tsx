@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import './App.css';
 import ItemCard from './components/ItemCard'; 
 import SearchBar from './components/SearchBar';
+import SortBar from './components/SortBar';
 import { LocalItem } from './types/LocalItem';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -24,6 +25,7 @@ function App() {
   const [reviewMessage, setReviewMessage] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [authMessage, setAuthMessage] = useState<string>('');
+  const [sortKey, setSortKey] = useState<string>('default');
 
   const navigateTo = (page: Page) => {
     setCurrentPage(page);
@@ -114,20 +116,46 @@ function App() {
     }
   };
 
-  const filteredItems = useMemo(() => {
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    if (!lowerCaseQuery) {
-      return localItems;
+  const processedItems = useMemo(() => {
+    let items = [...localItems];
+
+    switch (sortKey) {
+      case 'rating-desc':
+        items.sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0));
+        break;
+      case 'rating-asc':
+        items.sort((a, b) => (Number(a.rating) || 0) - (Number(b.rating) || 0));
+        break;
+      case 'favorites-desc':
+        items.sort((a, b) => (b.favoriteCount || 0) - (a.favoriteCount || 0));
+        break;
+      case 'favorites-asc':
+        items.sort((a, b) => (a.favoriteCount || 0) - (b.favoriteCount || 0));
+        break;
+      case 'name-asc':
+        items.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name-desc':
+        items.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      default:
+        break;
     }
-    return localItems.filter(item => {
-      const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
-      const descriptionMatch = item.description?.toLowerCase().includes(lowerCaseQuery) || false;
-      const typeMatch = item.type.toLowerCase().includes(lowerCaseQuery);
-      const locationMatch = item.location?.toLowerCase().includes(lowerCaseQuery) || false;
-      const featuresMatch = item.features?.some(feature => feature.toLowerCase().includes(lowerCaseQuery)) || false;
-      return nameMatch || descriptionMatch || typeMatch || locationMatch || featuresMatch;
-    });
-  }, [localItems, searchQuery]);
+
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    if (lowerCaseQuery) {
+      items = items.filter(item => {
+        const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
+        const descriptionMatch = item.description?.toLowerCase().includes(lowerCaseQuery) || false;
+        const typeMatch = item.type.toLowerCase().includes(lowerCaseQuery);
+        const locationMatch = item.location?.toLowerCase().includes(lowerCaseQuery) || false;
+        const featuresMatch = item.features?.some(feature => feature.toLowerCase().includes(lowerCaseQuery)) || false;
+        return nameMatch || descriptionMatch || typeMatch || locationMatch || featuresMatch;
+      });
+    }
+
+    return items;
+  }, [localItems, searchQuery, sortKey]);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -138,8 +166,8 @@ function App() {
       case 'home':
       default: {
         const itemRows = [];
-        for (let i = 0; i < filteredItems.length; i += 2) {
-          const itemPair = filteredItems.slice(i, i + 2);
+        for (let i = 0; i < processedItems.length; i += 2) {
+          const itemPair = processedItems.slice(i, i + 2);
           itemRows.push(
             <div className="item-row" key={`row-${i}`}>
               {itemPair.map(item => (
@@ -156,10 +184,18 @@ function App() {
 
         return (
           <div className='item-list-container'>
-            <SearchBar
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+            { }
+            <div className="controls-container">
+              <SearchBar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+              <SortBar 
+                sortKey={sortKey}
+                onSortChange={setSortKey}
+              />
+            </div>
+
             {reviewMessage && <p>{reviewMessage}</p>}
             {loading && <p>Loading local data...</p>}
             {error && <p className="api-error-message">{error}</p>}

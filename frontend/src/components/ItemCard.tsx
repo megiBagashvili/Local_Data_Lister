@@ -111,14 +111,13 @@ const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit })
         <div className="card-header">
           <h3>{localItem.name}</h3>
           <div className="favorite-container">
+            { }
             <button
               onClick={handleFavoriteClick}
               disabled={!token}
               className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
               title={isFavorited ? "Remove from favorites" : "Add to favorites"}
-            >
-              ♥
-            </button>
+            ></button>
             <span className="favorite-count">
               {localItem.favoriteCount ?? 0}
             </span>
