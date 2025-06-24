@@ -5,44 +5,65 @@ import './App.css';
 import ItemList from './components/ItemList';
 import SearchBar from './components/SearchBar';
 import { LocalItem } from './types/LocalItem';
+import RegisterPage from './pages/RegisterPage';
 
 interface FavoritesUpdate {
   itemId: string;
   newCount: number;
 }
 
+type Page = 'home' | 'register' | 'login';
+
 function App() {
   const [localItems, setLocalItems] = useState<LocalItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('authToken'));
   const [reviewMessage, setReviewMessage] = useState<string>('');
+
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [authMessage, setAuthMessage] = useState<string>('');
+
+  const navigateTo = (page: Page) => {
+    setCurrentPage(page);
+    setAuthMessage('');
+  };
+
+  const handleSuccessfulRegister = () => {
+    setAuthMessage('Registration successful! Please log in.');
+    setCurrentPage('login');
+  };
+  
+  const handleSetToken = (newToken: string | null) => {
+    setToken(newToken);
+    if (newToken) {
+      localStorage.setItem('authToken', newToken);
+    } else {
+      localStorage.removeItem('authToken');
+    }
+  };
+
+  const handleLogout = () => {
+    handleSetToken(null);
+    setCurrentPage('home');
+  };
+
 
   const fetchLocalData = useCallback(async () => {
     try {
       setLoading(true);
-
-      const headers: { [key: string]: string } = {
-        'Content-Type': 'application/json',
-      };
-
+      const headers: { [key: string]: string } = { 'Content-Type': 'application/json' };
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
-
-      const response = await axios.get<LocalItem[]>('http://localhost:8080/api/local-items', {
-        headers,
-      });
-
+      const response = await axios.get<LocalItem[]>('http://localhost:8080/api/local-items', { headers });
       setLocalItems(response.data);
       setError(null);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.error('Error fetching data:', err.message);
         setError(`Failed to load data: ${err.message}. Please ensure the backend is running.`);
       } else {
-        console.error('An unexpected error occurred:', err);
         setError('An unexpected error occurred while fetching data.');
       }
       setLocalItems([]);
@@ -57,26 +78,15 @@ function App() {
 
   useEffect(() => {
     const socket: Socket = io('http://localhost:8080');
-
-    socket.on('connect', () => {
-      console.log('Socket.IO connected successfully:', socket.id);
-    });
-
+    socket.on('connect', () => console.log('Socket.IO connected'));
     socket.on('favorites-updated', (data: FavoritesUpdate) => {
-      console.log('Received favorites update:', data);
       setLocalItems(prevItems =>
         prevItems.map(item =>
-          item.id === data.itemId
-            ? { ...item, favoriteCount: data.newCount }
-            : item
+          item.id === data.itemId ? { ...item, favoriteCount: data.newCount } : item
         )
       );
     });
-
-    socket.on('disconnect', () => {
-      console.log('Socket.IO disconnected.');
-    });
-
+    socket.on('disconnect', () => console.log('Socket.IO disconnected.'));
     return () => {
       socket.disconnect();
     };
@@ -130,35 +140,54 @@ function App() {
       return nameMatch || descriptionMatch || typeMatch || locationMatch || featuresMatch;
     });
   }, [localItems, searchQuery]);
+  
+  const renderPage = () => {
+    switch(currentPage) {
+      case 'register':
+        return <RegisterPage onSuccess={handleSuccessfulRegister} switchToLogin={() => navigateTo('login')} />;
+      case 'home':
+      default:
+        return (
+          <>
+            <SearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+            {reviewMessage && <p className="review-status-message">{reviewMessage}</p>}
+            {loading && <p>Loading local data...</p>}
+            {error && <p className="error-message">{error}</p>}
+            {!loading && !error && (
+              <div className="items-grid">
+                <ItemList
+                  localItems={filteredItems}
+                  token={token}
+                  onReviewSubmit={handleReviewSubmit}
+                />
+              </div>
+            )}
+          </>
+        )
+    }
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Local Data Lister</h1>
-        <div className="auth-container">
-          <input
-            type="text"
-            placeholder="Paste your JWT token here to 'log in'"
-            onChange={(e) => setToken(e.target.value)}
-            className="token-input"
-          />
-        </div>
+        <h1 onClick={() => navigateTo('home')} style={{cursor: 'pointer'}}>Local Data Lister</h1>
+        <nav className="auth-nav">
+          {token ? (
+            <button onClick={handleLogout} className="link-button">Logout</button>
+          ) : (
+            <>
+              <button onClick={() => navigateTo('login')} className="link-button">Log In</button>
+              <button onClick={() => navigateTo('register')} className="nav-button-primary">Sign Up</button>
+            </>
+          )}
+        </nav>
       </header>
       <main>
-        <SearchBar
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        {reviewMessage && <p className="review-status-message">{reviewMessage}</p>}
-        {loading && <p>Loading local data...</p>}
-        {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
-        {!loading && !error && (
-          <ItemList
-            localItems={filteredItems}
-            token={token}
-            onReviewSubmit={handleReviewSubmit}
-          />
-        )}
+        {authMessage && <div className="review-status-message">{authMessage}</div>}
+        {renderPage()}
       </main>
     </div>
   );
