@@ -61,11 +61,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit })
       await axios({
         method: method,
         url: `http://localhost:8080/api/items/${localItem.id}/favorite`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      
     } catch (error) {
       console.error("Failed to update favorite status:", error);
       setIsFavorited(originalFavoritedState);
@@ -93,58 +90,90 @@ const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit })
     setAreReviewsVisible(!areReviewsVisible);
   };
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.style.display = 'none';
+  };
+
   return (
     <div className="item-card">
-      <div className="card-header">
-        <h3>{localItem.name}</h3>
-        <div className="favorite-container">
-          <button
-            onClick={handleFavoriteClick}
-            disabled={!token}
-            className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
-            title={isFavorited ? "Remove from favorites" : "Add to favorites"}
-          >
-            ♥
-          </button>
-          <span className="favorite-count">
-            {localItem.favoriteCount ?? 0}
-          </span>
+      {localItem.photos && localItem.photos.length > 0 && (
+        <div className="item-card-image-container">
+          <img
+            src={localItem.photos[0]}
+            alt={localItem.name}
+            className="item-card-image"
+            onError={handleImageError}
+          />
         </div>
-      </div>
-      
-      <p><strong>Type:</strong> {localItem.type}</p>
-      <p>
-        <strong>Rating:</strong> {localItem.rating && Number(localItem.rating) > 0 ? localItem.rating : '0'} / 5.0
-      </p>
+      )}
 
-      <p>{localItem.description}</p>
-      {localItem.location && <p><small>Location: {localItem.location}</small></p>}
-      
-      {apiError && <p className="error-message-small"><small>{apiError}</small></p>}
-      
-      <div className="card-actions">
-        {token && !isReviewFormVisible && (
-          <button onClick={() => setReviewFormVisible(true)} className="btn-review">
-            Leave a Review
+      <div className="item-card-content">
+        <div className="card-header">
+          <h3>{localItem.name}</h3>
+          <div className="favorite-container">
+            <button
+              onClick={handleFavoriteClick}
+              disabled={!token}
+              className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
+              title={isFavorited ? "Remove from favorites" : "Add to favorites"}
+            >
+              ♥
+            </button>
+            <span className="favorite-count">
+              {localItem.favoriteCount ?? 0}
+            </span>
+          </div>
+        </div>
+
+        <p className="item-type-badge">{localItem.type}</p>
+
+        <p className="item-description">{localItem.description}</p>
+
+        <div className="item-details-container">
+          {localItem.rating && Number(localItem.rating) > 0 && (
+            <div className="item-detail">
+              <span className="detail-icon">★</span>
+              <strong>{Number(localItem.rating).toFixed(1)}</strong>
+            </div>
+          )}
+          {localItem.location && (
+            <div className="item-detail">
+              <span className="detail-icon">📍</span>
+              <span>{localItem.location}</span>
+            </div>
+          )}
+        </div>
+
+        {apiError && <p className="error-message-small"><small>{apiError}</small></p>}
+
+        <div className="card-actions">
+          {token && !isReviewFormVisible && (
+            <button onClick={() => setReviewFormVisible(true)} className="btn-review">
+              Leave a Review
+            </button>
+          )}
+          <button onClick={toggleReviewsVisibility} className="btn-show-reviews">
+            {areReviewsVisible ? 'Hide Reviews' : 'Show Reviews'}
           </button>
-        )}
-        <button onClick={toggleReviewsVisibility} className="btn-show-reviews">
-          {areReviewsVisible ? 'Hide Reviews' : 'Show Reviews'}
-        </button>
+        </div>
       </div>
 
       {isReviewFormVisible && (
-        <ReviewForm
-          itemId={localItem.id}
-          onSubmit={handleFormSubmit}
-          onCancel={() => setReviewFormVisible(false)}
-        />
+        <div className="item-card-collapsible-section">
+          <ReviewForm
+            itemId={localItem.id}
+            onSubmit={handleFormSubmit}
+            onCancel={() => setReviewFormVisible(false)}
+          />
+        </div>
       )}
 
       {areReviewsVisible && (
-        <div className="reviews-section">
-          <h4>User Reviews</h4>
-          {isLoadingReviews ? <p>Loading reviews...</p> : <ReviewList reviews={reviews} />}
+        <div className="item-card-collapsible-section">
+          <div className="reviews-section">
+            <h4>User Reviews</h4>
+            {isLoadingReviews ? <p>Loading reviews...</p> : <ReviewList reviews={reviews} />}
+          </div>
         </div>
       )}
     </div>

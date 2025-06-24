@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { io, Socket } from 'socket.io-client';
 import './App.css';
-import ItemList from './components/ItemList';
+import ItemCard from './components/ItemCard'; 
 import SearchBar from './components/SearchBar';
 import { LocalItem } from './types/LocalItem';
 import RegisterPage from './pages/RegisterPage';
@@ -22,7 +22,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('authToken'));
   const [reviewMessage, setReviewMessage] = useState<string>('');
-
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [authMessage, setAuthMessage] = useState<string>('');
 
@@ -35,7 +34,7 @@ function App() {
     setAuthMessage('Registration successful! Please log in.');
     setCurrentPage('login');
   };
-  
+
   const handleSetToken = (newToken: string | null) => {
     setToken(newToken);
     if (newToken) {
@@ -55,7 +54,6 @@ function App() {
     setCurrentPage('home');
   };
 
-
   const fetchLocalData = useCallback(async () => {
     try {
       setLoading(true);
@@ -67,11 +65,8 @@ function App() {
       setLocalItems(response.data);
       setError(null);
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(`Failed to load data: ${err.message}. Please ensure the backend is running.`);
-      } else {
-        setError('An unexpected error occurred while fetching data.');
-      }
+      const axiosError = err as AxiosError;
+      setError(`Failed to load data: ${axiosError.message}. Please ensure the backend is running.`);
       setLocalItems([]);
     } finally {
       setLoading(false);
@@ -99,25 +94,21 @@ function App() {
   }, []);
 
   const handleReviewSubmit = async (itemId: string, rating: number, comment: string) => {
-     if (!token) {
+    if (!token) {
       setReviewMessage('You must be logged in to submit a review.');
       return;
     }
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:8080/api/items/${itemId}/reviews`,
         { rating, comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      if (response.status === 201) {
-        setReviewMessage('Thank you! Your review has been submitted.');
-        fetchLocalData();
-      }
+      setReviewMessage('Thank you! Your review has been submitted.');
+      fetchLocalData();
     } catch (err) {
-      let message = 'An error occurred while submitting your review.';
-      if (axios.isAxiosError(err) && err.response) {
-        message = err.response.data.message || message;
-      }
+      const axiosError = err as AxiosError<any>;
+      const message = axiosError.response?.data?.message || 'An error occurred while submitting your review.';
       setReviewMessage(message);
       console.error('Review submission error:', err);
     }
@@ -125,63 +116,74 @@ function App() {
 
   const filteredItems = useMemo(() => {
     const lowerCaseQuery = searchQuery.toLowerCase();
-
     if (!lowerCaseQuery) {
       return localItems;
     }
-
     return localItems.filter(item => {
       const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
       const descriptionMatch = item.description?.toLowerCase().includes(lowerCaseQuery) || false;
       const typeMatch = item.type.toLowerCase().includes(lowerCaseQuery);
       const locationMatch = item.location?.toLowerCase().includes(lowerCaseQuery) || false;
       const featuresMatch = item.features?.some(feature => feature.toLowerCase().includes(lowerCaseQuery)) || false;
-
       return nameMatch || descriptionMatch || typeMatch || locationMatch || featuresMatch;
     });
   }, [localItems, searchQuery]);
-  
+
   const renderPage = () => {
-    switch(currentPage) {
+    switch (currentPage) {
       case 'register':
         return <RegisterPage onSuccess={handleSuccessfulRegister} switchToLogin={() => navigateTo('login')} />;
       case 'login':
         return <LoginPage onLoginSuccess={handleLoginSuccess} switchToRegister={() => navigateTo('register')} />;
       case 'home':
-      default:
+      default: {
+        const itemRows = [];
+        for (let i = 0; i < filteredItems.length; i += 2) {
+          const itemPair = filteredItems.slice(i, i + 2);
+          itemRows.push(
+            <div className="item-row" key={`row-${i}`}>
+              {itemPair.map(item => (
+                <ItemCard
+                  key={item.id}
+                  localItem={item}
+                  token={token}
+                  onReviewSubmit={handleReviewSubmit}
+                />
+              ))}
+            </div>
+          );
+        }
+
         return (
-          <>
+          <div className='item-list-container'>
             <SearchBar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
-            {reviewMessage && <p className="review-status-message">{reviewMessage}</p>}
+            {reviewMessage && <p>{reviewMessage}</p>}
             {loading && <p>Loading local data...</p>}
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="api-error-message">{error}</p>}
             {!loading && !error && (
-              <div className="items-grid">
-                <ItemList
-                  localItems={filteredItems}
-                  token={token}
-                  onReviewSubmit={handleReviewSubmit}
-                />
+              <div className="item-row-container">
+                {itemRows}
               </div>
             )}
-          </>
-        )
+          </div>
+        );
+      }
     }
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1 onClick={() => navigateTo('home')} style={{cursor: 'pointer'}}>Local Data Lister</h1>
+        <h1 onClick={() => navigateTo('home')} style={{ cursor: 'pointer' }}>Local Lister</h1>
         <nav className="auth-nav">
           {token ? (
-            <button onClick={handleLogout} className="link-button">Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           ) : (
             <>
-              <button onClick={() => navigateTo('login')} className="link-button">Log In</button>
+              <button onClick={() => navigateTo('login')}>Log In</button>
               <button onClick={() => navigateTo('register')} className="nav-button-primary">Sign Up</button>
             </>
           )}
