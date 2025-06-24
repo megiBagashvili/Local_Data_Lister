@@ -6,6 +6,7 @@ import ItemList from './components/ItemList';
 import SearchBar from './components/SearchBar';
 import { LocalItem } from './types/LocalItem';
 import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 
 interface FavoritesUpdate {
   itemId: string;
@@ -42,6 +43,11 @@ function App() {
     } else {
       localStorage.removeItem('authToken');
     }
+  };
+
+  const handleLoginSuccess = (newToken: string) => {
+    handleSetToken(newToken);
+    setCurrentPage('home');
   };
 
   const handleLogout = () => {
@@ -93,22 +99,16 @@ function App() {
   }, []);
 
   const handleReviewSubmit = async (itemId: string, rating: number, comment: string) => {
-    if (!token) {
+     if (!token) {
       setReviewMessage('You must be logged in to submit a review.');
       return;
     }
-
     try {
       const response = await axios.post(
         `http://localhost:8080/api/items/${itemId}/reviews`,
         { rating, comment },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
       if (response.status === 201) {
         setReviewMessage('Thank you! Your review has been submitted.');
         fetchLocalData();
@@ -145,6 +145,8 @@ function App() {
     switch(currentPage) {
       case 'register':
         return <RegisterPage onSuccess={handleSuccessfulRegister} switchToLogin={() => navigateTo('login')} />;
+      case 'login':
+        return <LoginPage onLoginSuccess={handleLoginSuccess} switchToRegister={() => navigateTo('register')} />;
       case 'home':
       default:
         return (
