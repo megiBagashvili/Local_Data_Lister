@@ -12,7 +12,7 @@
     "id": "res-2",
     "name": "Georgian cuisine Magnolia",
     "type": "restaurant",
-    "description": "Great location, delicious food and good atmosphere",
+    "description": "Georgian Cuisine Magnolia is a restaurant that prides itself on delivering an authentic taste of the region's culinary heritage. As part of the Magnolia Hotel, it offers diners not only traditional Georgian dishes but also captivating views of the river and the city. The combination of its scenic location and its dedication to genuine Georgian gastronomy makes it a popular choice for both hotel guests and visiting food enthusiasts.",
     "location": "G.Tabidze 1, Kutaisi 4600",
     "photos": ["/images/magnolia.jpg"],
     "reviewsOrAdvice": "Perfect spot for traditional Georgian dishes in a pleasant setting."
@@ -21,7 +21,7 @@
     "id": "res-3",
     "name": "Hacker-Pschorr Kutaisi",
     "type": "restaurant",
-    "description": "The best beer and food house in Kutaisi.",
+    "description": "Hacker-Pschorr Kutaisi presents a welcoming pub atmosphere. This establishment offers a diverse menu that goes beyond traditional Georgian fare, featuring international favorites. Of course, it also pays homage to its location with a selection of Georgian classics, including the ever-popular khinkali. It’s a place where patrons can enjoy a relaxed meal, watch a sporting event, or simply unwind with a drink in a lively and friendly setting.",
     "location": "#18/2, 13 Galaktion Tabidze St, Kutaisi 4600",
     "photos": ["/images/HP.jpg"],
     "reviewsOrAdvice": "Ideal for beer enthusiasts seeking a lively atmosphere and hearty food."
@@ -30,7 +30,7 @@
     "id": "res-4",
     "name": "Pub Bzholebi",
     "type": "restaurant",
-    "description": "The best flavors at the best price",
+    "description": "Pub Bzholebi is a beloved local haunt known for its lively atmosphere. It captures the essence of a true neighborhood pub. The interior carries a cozy and friendly vibe. Bzholebi is the go-to place for an affordable glass of local beer or chacha and simple, hearty Georgian bar snacks. It's a place of authentic social interaction, spirited conversations, and experiencing Kutaisi's vibrant, everyday nightlife in a relaxed and welcoming setting",
     "location": "11 Galaktion Tabidze St, Kutaisi 4600",
     "photos": ["/images/pub.jpg"],
     "reviewsOrAdvice": "Great value for money, offering delicious flavors without breaking the bank."
@@ -48,7 +48,7 @@
     "id": "res-6",
     "name": "Argonauts",
     "type": "restaurant",
-    "description": "Georgian restaurant in the city center.",
+    "description": "Bar-Restaurant Argonauts Located in the central boulevard of Kutaisi, bar-restaurant Argonauts is a natural part of the historical city. Bar-restaurant Argonauts is the place where Europe meets Georgia and where food is created with a vision of the future and a synthesis of past experiences. The dishes prepared in Argonauts represent multi-layered Georgian cuisine in such a way that it is simply impossible not to fall in love with them.",
     "location": "St. Nino 17, Kutaisi 4600",
     "photos": ["/images/argon.jpg"],
     "reviewsOrAdvice": "A central location for authentic Georgian dining."
@@ -57,7 +57,7 @@
     "id": "res-7",
     "name": "Story",
     "type": "restaurant",
-    "description": "Cozy Family Restaurant",
+    "description": "Story is a contemporary and stylish restaurant and bar that brings a modern, chic dining experience to Kutaisi. With a sleek interior design and a sophisticated atmosphere, it appeals to a fashionable crowd. The menu at Story is a fusion of Georgian and European cuisines, presenting familiar dishes with a creative and modern twist. In the evening, the venue often transitions into a lively lounge, featuring curated music and a vibrant social scene.",
     "location": "52 Tsereteli St, Kutaisi",
     "photos": ["/images/story.jpg"],
     "reviewsOrAdvice": "Perfect for a comfortable and warm family meal experience."
@@ -66,7 +66,7 @@
     "id": "res-8",
     "name": "Maisis Ezo",
     "type": "restaurant",
-    "description": "Cozy Restaurant with live music and poetry evenings",
+    "description": "Maisis Ezo, which translates to May's Courtyard, is a restaurant celebrated for its dedication to fresh, seasonal, and organic Georgian cuisine. The menu offers a true taste of the Imereti region's culinary traditions. The restaurant is particularly praised for its inviting outdoor dining area, making it an excellent choice during pleasant weather. The  authentic, flavorful dishes have earned Maisis Ezo a reputation of a must-visit cafe in Kutaisi.",
     "location": "11 Jacob Gogebashvili Street, Kutaisi 4602",
     "photos": ["/images/may.jpg"],
     "reviewsOrAdvice": "Experience a unique blend of cozy dining with cultural entertainment."
@@ -75,7 +75,7 @@
     "id": "res-9",
     "name": "Bikentia's Kebabery",
     "type": "restaurant",
-    "description": "The best place for beer and kebab! Must-visit place in Kutaisi.",
+    "description": "A true Kutaisi institution, Bikentia's Kebabery offers a unique and authentic taste of local culinary tradition. They serve one thing and they do it exceptionally well: succulent pork and beef kebabs wrapped in flatbread with onions and a tangy tomato-based sauce. This place is a favorite among locals and a must-visit for travelers seeking a flavorful, extremely affordable meal.",
     "location": "9 Tsisperi Kantselebi Street, Kutaisi",
     "photos": ["/images/bikentia.jpg"],
     "reviewsOrAdvice": "An essential stop for superb kebab and beer in Kutaisi."
@@ -93,7 +93,7 @@
     "id": "cafe-1",
     "name": "Mini-Art",
     "type": "cafe",
-    "description": "cafe&gallery",
+    "description": "Mini-Art is a charming art gallery and studio that serves as a vibrant hub for local creativity in Kutaisi. This space showcases a diverse collection of works by local artists, offering a colorful and expressive journey into the region's artistic soul. Often hosted by the artists themselves, a visit to Mini-Art provides a personal and engaging experience, allowing for direct interaction with the artists. It is a perfect spot for art lovers.",
     "location": "16 Galaktion Tabidze St, Kutaisi",
     "photos": ["/images/miniart.jpg"],
     "reviewsOrAdvice": "Combines a cozy cafe atmosphere with an intriguing art gallery."
@@ -102,7 +102,7 @@
     "id": "cafe-2",
     "name": "Tea House Foe-Foe",
     "type": "cafe",
-    "description": "charming spot in Kutaisi, Georgia, where visitors can enjoy a relaxing tea or coffee break amidst antique Georgian furniture. The teahouse is known for its cozy atmosphere and makes for the perfect place to unwind after exploring the city.",
+    "description": "Tea House Foe-Foe is an elegant and serene sanctuary dedicated to the art of tea. The establishment offers an extensive menu of high-quality teas from around the world. To complement the beverages, Foe-Foe presents a delectable selection of exquisite cakes, pastries, and light bites. It is a refined and peaceful retreat, ideal for quiet conversation or solitary reflection, offering a stark, pleasant contrast to the city's more bustling venues.",
     "location": "8 King Tamar Street, Kutaisi 4600",
     "photos": ["/images/foe.jpg"],
     "reviewsOrAdvice": "Perfect for a relaxing break, offering tea/coffee in an antique setting."
@@ -129,7 +129,7 @@
     "id": "cafe-5",
     "name": "La Fete Kutaisi",
     "type": "cafe",
-    "description": "Pastry, modern and traditional recipes, where quality is higher than price",
+    "description": "La Fete Kutaisi is a charming and cozy café that offers a delightful respite from the bustling city streets. With its vintage-inspired decor, including bookshelves and quaint furnishings, it exudes a warm and inviting atmosphere. La Fete is particularly known for its excellent selection of teas and a tempting array of delicious and beautifully presented desserts. For those seeking a light meal, they also offer tasty crepes and other café-style fare.",
     "location": "1 Tsminda Nino Street, Kutaisi",
     "photos": ["/images/fete.jpg"],
     "reviewsOrAdvice": "High-quality pastries blending modern and traditional recipes at great prices."
@@ -151,7 +151,7 @@
     "rating": 4.9,
     "price": "GEL 120",
     "location": "Road to Gelati Monastery, Motsameta, Kutaisi 2708",
-    "photos": ["/images/argo.jpg"],
+    "photos": ["/images/agro.jpg"],
     "reviewsOrAdvice": "Experience warm hospitality and comfort in a unique guesthouse setting."
   },
   {
