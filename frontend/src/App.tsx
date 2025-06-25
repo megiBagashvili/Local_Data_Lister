@@ -63,7 +63,7 @@ function App() {
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
-      const response = await axios.get<LocalItem[]>('http://localhost:8080/api/local-items', { headers });
+      const response = await axios.get<LocalItem[]>('/api/local-items', { headers });
       setLocalItems(response.data);
       setError(null);
     } catch (err) {
@@ -88,7 +88,7 @@ function App() {
   }, [fetchLocalData]);
 
   useEffect(() => {
-    const socket: Socket = io('http://localhost:8080');
+    const socket: Socket = io();
     socket.on('connect', () => console.log('Socket.IO connected'));
     socket.on('favorites-updated', (data: FavoritesUpdate) => {
       setLocalItems(prevItems =>
@@ -110,7 +110,7 @@ function App() {
     }
     try {
       await axios.post(
-        `http://localhost:8080/api/items/${itemId}/reviews`,
+        `/api/items/${itemId}/reviews`,
         { rating, comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );

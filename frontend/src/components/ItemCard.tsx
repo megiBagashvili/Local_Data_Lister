@@ -60,7 +60,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit })
       const method = !originalFavoritedState ? 'POST' : 'DELETE';
       await axios({
         method: method,
-        url: `http://localhost:8080/api/items/${localItem.id}/favorite`,
+        url: `/api/items/${localItem.id}/favorite`,
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {
@@ -79,7 +79,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ localItem, token, onReviewSubmit })
     if (!areReviewsVisible && reviews.length === 0) {
       setIsLoadingReviews(true);
       try {
-        const response = await axios.get<Review[]>(`http://localhost:8080/api/items/${localItem.id}/reviews`);
+        const response = await axios.get<Review[]>(`/api/items/${localItem.id}/reviews`);
         setReviews(response.data);
       } catch (error) {
         console.error("Failed to fetch reviews:", error);

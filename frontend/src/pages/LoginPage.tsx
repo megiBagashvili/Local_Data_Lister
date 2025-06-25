@@ -33,7 +33,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, switchToRegister 
 
     try {
       const response = await axios.post<{ token: string }>(
-        'http://localhost:8080/api/auth/login',
+        '/api/auth/login',
         formData
       );
       onLoginSuccess(response.data.token);
