@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
 import { io, Socket } from 'socket.io-client';
+import { Toaster, toast } from 'react-hot-toast';
 import './App.css';
 import ItemCard from './components/ItemCard'; 
 import SearchBar from './components/SearchBar';
 import SortBar from './components/SortBar';
+import ItemCardSkeleton from './components/ItemCardSkeleton';
 import { LocalItem } from './types/LocalItem';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -22,19 +24,11 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('authToken'));
-  const [reviewMessage, setReviewMessage] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [authMessage, setAuthMessage] = useState<string>('');
   const [sortKey, setSortKey] = useState<string>('default');
 
   const navigateTo = (page: Page) => {
     setCurrentPage(page);
-    setAuthMessage('');
-  };
-
-  const handleSuccessfulRegister = () => {
-    setAuthMessage('Registration successful! Please log in.');
-    setCurrentPage('login');
   };
 
   const handleSetToken = (newToken: string | null) => {
@@ -46,14 +40,20 @@ function App() {
     }
   };
 
+  const handleLogout = useCallback(() => {
+    handleSetToken(null);
+    setCurrentPage('home');
+  }, []);
+
+  const handleSuccessfulRegister = () => {
+    toast.success('Registration successful! Please log in.');
+    setCurrentPage('login');
+  };
+
   const handleLoginSuccess = (newToken: string) => {
     handleSetToken(newToken);
     setCurrentPage('home');
-  };
-
-  const handleLogout = () => {
-    handleSetToken(null);
-    setCurrentPage('home');
+    toast.success('Logged in successfully!');
   };
 
   const fetchLocalData = useCallback(async () => {
@@ -68,12 +68,20 @@ function App() {
       setError(null);
     } catch (err) {
       const axiosError = err as AxiosError;
-      setError(`Failed to load data: ${axiosError.message}. Please ensure the backend is running.`);
+      
+      if (axiosError.response?.status === 401 || axiosError.response?.status === 403) {
+        if (token) {
+          toast.error('Your session has expired. Please log in again.');
+        }
+        handleLogout();
+      } else {
+        setError(`Failed to load data: ${axiosError.message}. Please ensure the backend is running.`);
+      }
       setLocalItems([]);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, handleLogout]);
 
   useEffect(() => {
     fetchLocalData();
@@ -97,7 +105,7 @@ function App() {
 
   const handleReviewSubmit = async (itemId: string, rating: number, comment: string) => {
     if (!token) {
-      setReviewMessage('You must be logged in to submit a review.');
+      toast.error('You must be logged in to submit a review.');
       return;
     }
     try {
@@ -106,12 +114,12 @@ function App() {
         { rating, comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setReviewMessage('Thank you! Your review has been submitted.');
+      toast.success('Thank you! Your review has been submitted.');
       fetchLocalData();
     } catch (err) {
       const axiosError = err as AxiosError<any>;
       const message = axiosError.response?.data?.message || 'An error occurred while submitting your review.';
-      setReviewMessage(message);
+      toast.error(message);
       console.error('Review submission error:', err);
     }
   };
@@ -184,7 +192,6 @@ function App() {
 
         return (
           <div className='item-list-container'>
-            { }
             <div className="controls-container">
               <SearchBar
                 searchQuery={searchQuery}
@@ -195,13 +202,25 @@ function App() {
                 onSortChange={setSortKey}
               />
             </div>
-
-            {reviewMessage && <p>{reviewMessage}</p>}
-            {loading && <p>Loading local data...</p>}
+            
             {error && <p className="api-error-message">{error}</p>}
+            
+            {loading && (
+              <div className="item-row-container">
+                <div className="item-row">
+                  <ItemCardSkeleton />
+                  <ItemCardSkeleton />
+                </div>
+                 <div className="item-row">
+                  <ItemCardSkeleton />
+                  <ItemCardSkeleton />
+                </div>
+              </div>
+            )}
+
             {!loading && !error && (
               <div className="item-row-container">
-                {itemRows}
+                {itemRows.length > 0 ? itemRows : <p>No items match your criteria.</p>}
               </div>
             )}
           </div>
@@ -212,11 +231,15 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster position="top-center" reverseOrder={false} />
       <header className="App-header">
         <h1 onClick={() => navigateTo('home')} style={{ cursor: 'pointer' }}>Local Lister</h1>
         <nav className="auth-nav">
           {token ? (
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={() => {
+                handleLogout();
+                toast('You have been logged out.', { icon: '👋' });
+            }}>Logout</button>
           ) : (
             <>
               <button onClick={() => navigateTo('login')}>Log In</button>
@@ -226,7 +249,6 @@ function App() {
         </nav>
       </header>
       <main>
-        {authMessage && <div className="review-status-message">{authMessage}</div>}
         {renderPage()}
       </main>
     </div>
